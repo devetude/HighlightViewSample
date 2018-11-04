@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HighlightViewSample</string>
+    <string name="text_view">Text view</string>
+    <string name="button">Button</string>
+    <string name="image_view">Image view</string>
+    <string name="edit_text">Edit text</string>
+</resources>
