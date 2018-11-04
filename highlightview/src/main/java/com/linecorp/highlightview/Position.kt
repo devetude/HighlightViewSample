@@ -1,3 +1,8 @@
 package com.linecorp.highlightview
 
-data class Position(val x: Float, val y: Float)
+import android.support.annotation.FloatRange
+
+data class Position(
+    @FloatRange(from = 0.0) val x: Float,
+    @FloatRange(from = 0.0) val y: Float
+)

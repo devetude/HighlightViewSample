@@ -8,6 +8,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.os.Build
 import android.support.annotation.AttrRes
+import android.support.annotation.FloatRange
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -77,7 +78,6 @@ class HighlightView : ConstraintLayout {
                     override fun onAnimationStart(animation: Animation?) {
                         // Do nothing.
                     }
-
                 })
             }
             .also(::startAnimation)
@@ -107,7 +107,7 @@ class HighlightView : ConstraintLayout {
         currentTargets?.forEach { target: HighlightTarget ->
             target.viewReference.get()?.let { targetView: View ->
                 val centerPosition = targetView.getCenterPosition()
-                val radius = targetView.getHighlightRadius() + target.highlightPadding.toFloat()
+                val radius = targetView.getHighlightRadius() + target.highlightPaddingPx.toFloat()
                 drawCircle(
                     centerPosition.x,
                     centerPosition.y,
@@ -123,14 +123,16 @@ class HighlightView : ConstraintLayout {
     private fun View.getHighlightRadius(): Float =
         Math.sqrt(Math.pow(width / 2.0, 2.0) + Math.pow(height / 2.0, 2.0)).toFloat()
 
-    fun setHighlightCircleSizeRatio(ratio: Float) {
+    fun setHighlightCircleSizeRatio(
+        @FloatRange(from = 0.0, to = HIGHLIGHT_CIRCLE_MAX_EXPAND_RATIO.toDouble()) ratio: Float
+    ) {
         highlightCircleSizeRatio = ratio
     }
 
     companion object {
         private const val DEFAULT_TRANSLATION_Z = 1_000.0f
 
-        const val DEFAULT_HIGHLIGHT_PADDING = 0
+        const val DEFAULT_HIGHLIGHT_PADDING_PX = 0
         private val DEFAULT_BACKGROUND_COLOR =
             Color.parseColor("#66000000" /* colorString */)
 
